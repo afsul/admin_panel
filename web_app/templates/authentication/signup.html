@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 style="text-align: center;" >Sign Up</h1>
+<div class="container">
+<form method="post" action="/signup">
+    {% csrf_token %}
+    <div class="form-row">
+      <div class="col">
+        <input type="text" id="fname" name="fname" class="form-control" placeholder="First name" Required>
+      </div>
+      <div class="col">
+        <input type="text" id="lname" name="lname" class="form-control" placeholder="Last name" Required>
+      </div>
+      <div class="col">
+        <input type="email" id="email" name="email" class="form-control" placeholder="Email" Required>
+      </div>
+      <div class="col">
+        <input type="text" id="username" name="username" class="form-control" placeholder="Username" Required>
+      </div>
+      <div class="col">
+        <input type="password" id="pass1" name="pass1" class="form-control" placeholder="Password" Required>
+      </div>
+      <div class="col">
+        <input type="password" id="pass2" name="pass2" class="form-control" placeholder="Confirm password" Required>
+      </div>
+      <button type="submit">SignUp</button>
+    </div>
+  </form>
+</div>
+
+{% endblock %}
