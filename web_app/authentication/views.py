@@ -49,19 +49,65 @@ def adminsignin(request):
         
         if admin is not None:
             if admin.is_superuser:
-                print('loggin')
+              
                 login(request, admin)
                 messages.info(request, "You logged in succesfully")
                 list = User.objects.all()
                 return render(request, 'list.html', {'ls':list})
         else:
-                print('error')
+                
                 messages.info(request, "Invalid  username or password.")
                 return render(request, 'adminsignin.html')
     else:
        
             return render(request, 'adminsignin.html')
 
+def search_list(request):
+   
+    if request.method == "POST":
+        query_name = request.POST.get('first_name',None)
+        print('search')
+        if query_name:
+            
+            results = User.objects.filter(name_contains=query_name)
+            return render(request, 'list.html', {"res":results})
+
+        return render(request, 'list.html')
+    
+
+
+def edit(request,id):
+    print(id)
+    object=User.objects.get(id=id)
+    return render(request, 'list_edit.html',{'object':object})
+def update(request,id):
+    user = User.objects.get(id=id)
+    if request.method == 'POST':
+            print('update')
+            username = request.POST['username']
+            fname = request.POST['fname']
+            lname = request.POST['lname']
+            email = request.POST['email']
+            pass1 = request.POST['pass1']
+            pass2 = request.POST['pass2']
+
+            if pass1 == pass2:
+                user.username=username
+                user.first_name=fname
+                user.last_name=lname
+                user.email=email
+                user.set_password(pass1)
+                user.save()
+                messages.success(request, "Your Update is succesful")
+                list = User.objects.all()
+                return render(request, 'list.html', {'ls':list})
+            return render(request, "list_edit.html")
+def delete(request,pk):   
+        user = User.objects.get(pk=pk)
+        print("this net",request.method)
+        user.delete()
+        list = User.objects.all()
+        return render(request,'list.html',{'ls':list})
 
 
 

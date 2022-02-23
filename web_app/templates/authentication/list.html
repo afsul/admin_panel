@@ -1,6 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<div class="container ">
+  
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-3"></div>
+  <div class="col-md-3">
+    <form action="{% url 'search' %}" method="POST">
+      {% csrf_token %} 
+      <input type="text" name="name">
+      <input type="submit" name="submit" value="Search">
+  </form>
+</div>
+</div>
+
+</div>
+
 <div class="container">
     <table class="table">
         <thead>
@@ -13,21 +29,30 @@
           </tr>
         </thead>
         <tbody>
-          <a class="btn btn-primary me-0"  href="{% url 'signup' %}">Add User</a>
-            {% for item in  ls %}
+          <a class="btn btn-primary me-0"  href="{% url 'signup' %}" style="float: right;">Add User</a>
+
+          <!-- {% if res is defined %}   -->
+
+          {% for result in res %}
+
+    <p>{{result.first_name}}</p>
+
+{% endfor %}
+
+
+          
+            {% for item in ls %}
             
           <tr>
             <th scope="row"></th>
             <td>{{item.first_name}}</td>
             <td>{{item.last_name}}</td>
             <td>{{item.email}}</td>
-            <td><button class="btn btn-primary">Edit</button>
-                <button class="btn btn-danger">Delete</button></td>
-       
-      
+            <td><a href="{% url 'edit' item.id%}" class="btn btn-primary">Edit</a>
+                <a href="{% url 'delete' item.pk%}" class="btn btn-danger">Delete</a></td>
         </tr>
         {% endfor %}
-
+<!-- {% endif %} -->
         </tbody>
       </table>
 </div>
