@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Sl.no</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Email</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <a class="btn btn-primary me-0"  href="{% url 'signup' %}">Add User</a>
+            {% for item in  ls %}
+            
+          <tr>
+            <th scope="row"></th>
+            <td>{{item.first_name}}</td>
+            <td>{{item.last_name}}</td>
+            <td>{{item.email}}</td>
+            <td><button class="btn btn-primary">Edit</button>
+                <button class="btn btn-danger">Delete</button></td>
+       
+      
+        </tr>
+        {% endfor %}
+
+        </tbody>
+      </table>
+</div>
+
+{% endblock %}

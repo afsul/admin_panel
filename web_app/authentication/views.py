@@ -1,4 +1,4 @@
-import re
+
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.views.decorators.cache import cache_control
+
 
 # Create your views here.
 
@@ -40,6 +41,31 @@ def signup(request):
             return redirect('home')
     return render(request, "signup.html")
 
+def adminsignin(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['pass1']
+        admin = authenticate(username=username, password=password)
+        
+        if admin is not None:
+            if admin.is_superuser:
+                print('loggin')
+                login(request, admin)
+                messages.info(request, "You logged in succesfully")
+                list = User.objects.all()
+                return render(request, 'list.html', {'ls':list})
+        else:
+                print('error')
+                messages.info(request, "Invalid  username or password.")
+                return render(request, 'adminsignin.html')
+    else:
+       
+            return render(request, 'adminsignin.html')
+
+
+
+
+
 @cache_control(no_cache=True, must_revalidated=True, no_store=True)
 def signin(request):
     if request.session.has_key('user_login'):
@@ -49,6 +75,7 @@ def signin(request):
             username = request.POST['username']
             password = request.POST['pass1']
             user = authenticate(username=username, password=password)
+            
             if user is not None:
                 
                 login(request, user)

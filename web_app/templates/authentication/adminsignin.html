@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1 style="text-align: center;" >Admin Sign In</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+    
+<form method="POST" action="{% url 'adminsignin' %}">
+    {% csrf_token %}
+    <div class="form-row">
+      <div class="col">
+        <input type="text" id="username" name="username" class="form-control mb-3 mt-5" placeholder="username" Required>
+      </div>
+      <div class="col">
+        <input type="password" id="pass1" name="pass1" class="form-control mb-3" placeholder="password" Required>
+      </div>
+      <button type="submit" class="btn btn-primary">Sign in</button>
+    </div>
+  </form>
+  
+</div>
+<div class="col-md-4"></div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+{% endblock %}

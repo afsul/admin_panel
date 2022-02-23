@@ -7,6 +7,6 @@ class Signup(models.Model):
     last_name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255)
     username = models.CharField(max_length=255)
-    password1 = models.CharField(max_length=20, widget=forms.PasswordInput)
-    password2 = models.CharField(max_length=20, widget=forms.PasswordInput)
-    
+    password1 = models.CharField(max_length=20)
+    password2 = models.CharField(max_length=20)
+
