@@ -4,13 +4,13 @@
 <div class="container ">
   
 <div class="row">
-  <div class="col-md-3"></div>
-  <div class="col-md-3"></div>
-  <div class="col-md-3">
+  <div class="col-md-6"></div>
+ 
+  <div class="col-md-6">
     <form action="{% url 'search' %}" method="POST">
       {% csrf_token %} 
       <input type="text" name="name">
-      <input type="submit" name="submit" value="Search">
+      <input type="submit" class="btn btn-success" name="submit" value="Search">
   </form>
 </div>
 </div>
@@ -21,7 +21,7 @@
     <table class="table">
         <thead>
           <tr>
-            <th scope="col">Sl.no</th>
+            <th scope="col"></th>
             <th scope="col">First Name</th>
             <th scope="col">Last Name</th>
             <th scope="col">Email</th>
@@ -42,6 +42,7 @@
 
           
             {% for item in ls %}
+            {% if item.is_superuser != True %}
             
           <tr>
             <th scope="row"></th>
@@ -51,10 +52,13 @@
             <td><a href="{% url 'edit' item.id%}" class="btn btn-primary">Edit</a>
                 <a href="{% url 'delete' item.pk%}" class="btn btn-danger">Delete</a></td>
         </tr>
+        {% endif %}
         {% endfor %}
 <!-- {% endif %} -->
+<a class="btn btn-primary"  href="{% url 'adminlogout' %}">signout</a>
         </tbody>
       </table>
 </div>
+
 
 {% endblock %}

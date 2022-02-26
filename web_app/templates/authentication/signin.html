@@ -7,7 +7,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-4"></div>
-    <div class="col-md-4">
+    <div class="col-md-4"> 
     
 <form method="POST" action="{% url 'signin' %}">
     {% csrf_token %}
@@ -18,12 +18,13 @@
       <div class="col">
         <input type="password" id="pass1" name="pass1" class="form-control mb-3" placeholder="password" Required>
       </div>
+      <p  style="color:red" >{{login_error}}</p>
       <button type="submit" class="btn btn-primary">Sign in</button>
       <a class="btn btn-primary"  href="{% url 'signup' %}">SignUp</a>
       <a class="btn btn-primary" href="{% url  'adminsignin' %}">Admin Sign in</a>
     </div>
   </form>
-  
+
 </div>
 <div class="col-md-4"></div>
 </div>
